@@ -1,0 +1,8 @@
+VERSION:3 SOURCE_TIMESTAMP:56709471
+NODE:I LEVEL:0 LINE:23 "C:\cvavreval\inc\io.h"
+NODE:V LEVEL:0 LINE:30 "contorIn -> R4"
+NODE:V LEVEL:0 LINE:31 "contorSec -> R3"
+NODE:V LEVEL:0 LINE:32 "contorMin -> R6"
+NODE:V LEVEL:0 LINE:33 "contorHr -> R5"
+NODE:F LEVEL:0 LINE:36 "timer0_ovf_isr(void)"
+NODE:F LEVEL:0 LINE:76 "main(void)"
