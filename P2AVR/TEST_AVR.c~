@@ -12,7 +12,7 @@ Company :
 Comments: 
 
 
-Chip type               : ATmega164
+Chip type               : ATmega164P
 Program type            : Application
 AVR Core Clock frequency: 10.000000 MHz
 Memory model            : Small
@@ -25,21 +25,28 @@ Data Stack size         : 256
 // Declare your global variables here
 
 // Timer 0 overflow interrupt service routine
-//char nrTotalPuls=0;
-//char arrayOre[24]
+char nrTotalPuls = 0;  //valoarea initiala
+char arrayOre[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char contorIn=0;
 char contorSec=0;
 char contorMin=0;
-char contorHr=0;
-
+char contorHr=1;
+int val_afisor;
+// variabila de verificare a butonului
+char button_pressed;
 
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
 // Reinitialize Timer 0 value
-TCNT0=0x3C;
+TCNT0=0x63;       
+//artificiu pentru demonstrare in simulator nu vrea sai mearga
+//pe orice alta frecventa
+//pentru frecventa de 20MHz TCNT0 ar trebui sa fie (pune aici vaoarea in hexa dorita pentru 10.086 ms)
 // Place your code here
 contorIn=contorIn+1;
-if(contorIn%50==0){
+if(contorIn%25==0){
+// contorIn pentru 4MHz si TCNT0 ales numara o secunda odata ce ajunge la valoarea de 25
+//pentru 20Mhz ar trebui sa fie 100
     contorSec=contorSec+1;
     contorIn=0;
 }
@@ -51,9 +58,9 @@ if(contorMin%60==0){
 contorHr=contorHr+1;
 contorMin=0;
 }
-//arrayOre[contorHr]=nrTotalpuls;
- if(contorHr%23==0){
-  contorHr=0;
+arrayOre[contorHr]=nrTotalPuls;
+ if(contorHr%24==0){
+  contorHr=1;
   }
  
 
@@ -64,14 +71,101 @@ contorMin=0;
 
 
 
-/* char get_Curent(void)
+char get_Curent_state(void)
  {    //citim cei 6 biti de la dsp pentru valoarea curentului
-  char val;
+  unsigned char val;
+  
   val=PINB & 0b00111111; 
-                        
+  val=val<<2;
+  val=2>>val;
+  //shiftam biti pentru a avea doar codul de stare pentru LEDurile                       
   return val; 
  }
-   */
+
+void LED_Stare_Curent(void)
+{char LEDstate;
+LEDstate=get_Curent_state();
+ if(LEDstate==0b000001){
+ PORTB=0b00000001;
+ }else if(LEDstate==0b000010){
+ PORTB=0b00000010;
+ }else if(LEDstate==0b000010){
+ PORTB=0b00000100;
+ }else if(LEDstate==0b000100){
+ PORTB=0b00001000;
+ }else if(LEDstate==0b001000){
+ PORTB=0b00010000;
+ }else if(LEDstate==0b010000){
+ PORTB=0b00100000;
+ }else if(LEDstate==0b100000){
+ PORTB=0b01000000;
+ }else if(LEDstate==0b000011){
+ PORTB=0b10000000;
+ }else {
+ PORTB=0x00;
+ }
+//aceasta functie preia valoarea trimisa de dsp( valorile sunt intre anumite nivele
+//exemplu nivel 0 (LED0) corespunde unei valori intre (0A-100mA) s.s.m.d. 
+}
+
+
+/*
+int ValAfisorButon(void){
+int SUMA;
+//ar trebui sa ma mai gandesc cu butonul ca un fel de multi switch ca nu e un switch
+//ar trebui sa il pun intr-o
+char buffer_calc;
+char i;
+if(button_pressed==0)//buton apasat
+//fa astfel incat daca butonul a fost apasat sa ne arate 12 ore de consum pentru 2 minute si daca "nu a fost apasat" sa ne arate ultimele 24 de ore
+ { 
+  SUMA=0;
+  for(i=1;i<=24;i++)
+  {   SUMA=SUMA+arrayOre[i];
+  }
+  return val_afisor=SUMA;                          
+  //sfarsitul functiei de 24 de ore
+ }
+   else
+ {SUMA=0;
+  
+  if(contorHr>12)
+   {
+   buffer_calc=contorHr-12;
+    for(i=buffer_calc;i<=contorHr;i++)
+      {
+      SUMA=SUMA+arrayOre[i];
+      }
+    }
+    else  {
+       buffer_calc=12-contorHr;
+       for(i=24-buffer_calc;i<=24;i++)
+        {
+        SUMA=SUMA+arrayOre[i];
+        }
+       for(i=1;i<=contorHr;i++)
+       {
+       SUMA=SUMA+arrayOre[i];
+       }
+    
+    while(contorMin%2!=0)
+    {
+    return val_afisor=SUMA;
+    }
+
+
+  }
+ 
+  }
+
+  */
+
+
+
+
+
+
+
  
 void main(void)
 {
@@ -220,4 +314,4 @@ while (1)
       // Place your code here
 
       }
-}
+ }

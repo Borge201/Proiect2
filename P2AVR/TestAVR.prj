@@ -21,7 +21,7 @@ OutputExecutableFilesDirectory=Release\Exe
 OutputLinkerFilesDirectory=Release\Link
 AllowDisplayFunctionCallTree=1
 CleanUp=2
-TimeStamp1=1450218628
+TimeStamp1=1450341447
 [CompilerDebug]
 Chip=ATmega164P
 CPUClock=10000000
@@ -123,9 +123,9 @@ UseEEPROMLocation0=1
 DisplayCodeSizeError=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1450218612
-Build=4
-GlobalVarAddr=512
+COFFileTimeStamp=1450341435
+Build=8
+GlobalVarAddr=536
 EEPROMVarAddr=0
 [DefinedSymbolsDebug]
 Count=0
@@ -231,7 +231,7 @@ DisplayCodeSizeError=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=4
+Build=8
 [DefinedSymbols]
 Count=0
 [CompilerAdvanced]
@@ -331,8 +331,9 @@ VerifyProgramming=1
 ProgrammingCounter=0
 RunUserProg=0
 [HeadersList]
-Files=1
+Files=2
 F1=C:\Users\George\Desktop\New folder\TEST_AVR.c
+F2=C:\Users\George\Desktop\P2AVR\TEST_AVR.c
 [BuildInfoCompiler]
 L1=Build configuration: Debug
 L2=Chip: ATmega164P
@@ -350,10 +351,10 @@ L13=Enhanced function parameters passing: Mode 2
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 3
-L18=1711 line(s) compiled
+L17=Build: 7
+L18=1805 line(s) compiled
 L19=No errors
-L20=No warnings
+L20=4 warning(s)
 L21=
 L22=Bit variables size: 0 byte(s)
 L23=
@@ -361,29 +362,30 @@ L24=Data Stack area: 0x100 to 0x1FF
 L25=Data Stack size: 256 byte(s)
 L26=Estimated Data Stack usage: 8 byte(s)
 L27=
-L28=RAM Global variables size: 0 byte(s)
-L29=
-L30=Hardware Stack area: 0x200 to 0x4FF
-L31=Hardware Stack size: 768 byte(s)
-L32=
-L33=Heap size: 0 byte(s)
-L34=
-L35=EEPROM usage: 0 byte(s), 0.0% of EEPROM
-Lines=37
-L36=Program size: 297 words (594 bytes), 3.6% of FLASH
-L37=2 words (4 bytes), 0.7% reduced by Code Compression
+L28=RAM Global variables area: 0x200 to 0x217
+L29=RAM Global variables size: 24 byte(s)
+L30=
+L31=Hardware Stack area: 0x218 to 0x4FF
+L32=Hardware Stack size: 744 byte(s)
+L33=
+L34=Heap size: 0 byte(s)
+L35=
+Lines=38
+L36=EEPROM usage: 0 byte(s), 0.0% of EEPROM
+L37=Program size: 304 words (608 bytes), 3.7% of FLASH
+L38=2 words (4 bytes), 0.7% reduced by Code Compression
 [BuildInfoAssembler]
 Lines=12
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=C:\Users\George\Desktop\New folder\Debug\List\TestAVR.asm(1657): No EEPROM data, deleting C:\Users\George\Desktop\New folder\Debug\Exe\TestAVR.eep
+L4=C:\Users\George\Desktop\P2AVR\Debug\List\TestAVR.asm(1768): No EEPROM data, deleting C:\Users\George\Desktop\P2AVR\Debug\Exe\TestAVR.eep
 L5=
 L6=ATmega164P memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x000252    582     12    594   16384   3.6%
-L10=[.dseg] 0x000100 0x000200      0      0      0    1024   0.0%
+L9=[.cseg] 0x000000 0x000260    594     14    608   16384   3.7%
+L10=[.dseg] 0x000100 0x000218      0     24     24    1024   2.3%
 L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 L12=
 [Bookmarks0]
@@ -391,16 +393,18 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1450218646
+TimeStamp=1450341448
 [BookmarksFoldedCode]
-Files=1
+Files=3
 F1=TEST_AVR.c
+F2=C:\cvavreval\inc\mega164.h
+F3=C:\cvavreval\inc\io.h
 [Bookmarks1]
-TimeStamp=1450218628
-Row=14
-Column=36
+TimeStamp=1450341447
+Row=110
+Column=43
 ScrollPosX=0
-ScrollPosY=0
+ScrollPosY=108
 BK0=-1
 BK1=-1
 BK2=-1
@@ -416,5 +420,47 @@ Files=3
 F1=C:\cvavreval\inc\io.h
 F2=C:\cvavreval\inc\mega164.h
 F3=C:\cvavreval\inc\mega324_bits.h
-[FoldedCode1]
+[Bookmarks2]
+TimeStamp=1122712147
+Row=0
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode2]
 Blocks=0
+[Bookmarks3]
+TimeStamp=1229730422
+Row=0
+Column=0
+ScrollPosX=0
+ScrollPosY=399
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode3]
+Blocks=0
+[Header2]
+Files=3
+F1=C:\cvavreval\inc\io.h
+F2=C:\cvavreval\inc\mega164.h
+F3=C:\cvavreval\inc\mega324_bits.h
+[FoldedCode1]
+Line1=313
+Blocks=1
