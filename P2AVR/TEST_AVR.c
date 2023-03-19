@@ -34,7 +34,9 @@ char contorHr=1;
 int val_afisor;
 // variabila de verificare a butonului
 char button_pressed;
-
+char check_pulse; //modifica pini conform cerintei
+char cont_pulse=0;
+char in_semnal_p;
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
 // Reinitialize Timer 0 value
@@ -78,7 +80,7 @@ char get_Curent_state(void)
   val=PINB & 0b00111111; 
   val=val<<2;
   val=2>>val;
-  //shiftam biti pentru a avea doar codul de stare pentru LEDurile                       
+  //shiftam biti pentru a avea doar codul de stare pentru LEDuri                       
   return val; 
  }
 
@@ -107,9 +109,37 @@ LEDstate=get_Curent_state();
 //aceasta functie preia valoarea trimisa de dsp( valorile sunt intre anumite nivele
 //exemplu nivel 0 (LED0) corespunde unei valori intre (0A-100mA) s.s.m.d. 
 }
-
-// ATENTIE DA ERORI NASPA SI NU STIU DE CE 
 /*
+void Afisor_2Cifre(int value){
+//placeholder pentru porti liberi pentru 2 cifre
+ cifra0=value%10;
+ cifra1=(value/10)%10;
+if(cifra0==0)
+esle if(cifra0==1)
+else if(cifra0==2)
+else if(cifra0==3)
+else if(cifra0==4)
+else if(cifra0==5)
+else if(cifra0==6)
+else if(cifra0==7)
+else if(cifra0==8)
+else if(cifra0==9)
+
+if(cifra1==0)
+else if(cifra1==1)
+else if(cifra1==2)
+else if(cifra1==3)
+else if(cifra1==4)
+else if(cifra1==5)
+else if(cifra1==6)
+else if(cifra1==7)
+else if(cifra1==8)
+else if(cifra1==8)
+}
+*/
+
+
+
 int ValAfisorButon(void){
 int SUMA;
 //ar trebui sa ma mai gandesc cu butonul ca un fel de multi switch ca nu e un switch
@@ -117,7 +147,7 @@ int SUMA;
 char buffer_calc;
 char i;
 if(button_pressed==0)//buton apasat
-//fa astfel incat daca butonul a fost apasat sa ne arate 12 ore de consum pentru 2 minute si daca "nu a fost apasat" sa ne arate ultimele 24 de ore
+//fa astfel incat daca butonul a fost apasat sa ne arate 12 ore de consum cat timp e apasat si daca "nu a fost apasat" sa ne arate ultimele 24 de ore
  { 
   SUMA=0;
   for(i=1;i<=24;i++)
@@ -147,18 +177,14 @@ if(button_pressed==0)//buton apasat
        {
        SUMA=SUMA+arrayOre[i];
        }
-    
-    while(contorMin%2!=0)
-    {
     return val_afisor=SUMA;
-    }
 
 
   }
  
   }
-
-  */
+    }
+  
 
 
 
@@ -311,7 +337,27 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
 
 while (1)
       {
-      // Place your code here
-
+      LED_Stare_Curent();
+      if(check_pulse==1)
+      {
+        cont_pulse=0;
+        while(check_pulse!=0)
+          {if(in_semnal_p==1)
+            {
+            cont_pulse=cont_pulse+1;
+            }
+          }
+      }
+      nrTotalPuls=cont_pulse;
+      ValAfisorButon();
+      
+      
+      
+      
+      
+      
+      
+      
+      
       }
  }

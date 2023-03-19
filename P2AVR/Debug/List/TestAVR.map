@@ -17,9 +17,15 @@ contorMin                                                                       
 contorHr                                                                          R8           1
 val_afisor                                                                        R9,R10       2
 button_pressed                                                                    R7           1
+check_pulse                                                                       R12          1
+cont_pulse                                                                        R11          1
+in_semnal_p                                                                       R14          1
 
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-timer0_ovf_isr                                                                    0x00074     55
-main                                                                              0x000AB     90
+timer0_ovf_isr                                                                    0x00076     55
+get_Curent_state                                                                  0x000AD     11
+LED_Stare_Curent                                                                  0x000B8     39
+ValAfisorButon                                                                    0x000DF     53
+main                                                                              0x00114    104

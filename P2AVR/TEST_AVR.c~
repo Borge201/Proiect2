@@ -34,7 +34,9 @@ char contorHr=1;
 int val_afisor;
 // variabila de verificare a butonului
 char button_pressed;
-
+char check_pulse; //modifica pini conform cerintei
+char cont_pulse=0;
+char in_semnal_p;
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
 // Reinitialize Timer 0 value
@@ -78,7 +80,7 @@ char get_Curent_state(void)
   val=PINB & 0b00111111; 
   val=val<<2;
   val=2>>val;
-  //shiftam biti pentru a avea doar codul de stare pentru LEDurile                       
+  //shiftam biti pentru a avea doar codul de stare pentru LEDuri                       
   return val; 
  }
 
@@ -108,8 +110,11 @@ LEDstate=get_Curent_state();
 //exemplu nivel 0 (LED0) corespunde unei valori intre (0A-100mA) s.s.m.d. 
 }
 
+//void Afisor_2Cifre(void){}
 
-/*
+
+
+
 int ValAfisorButon(void){
 int SUMA;
 //ar trebui sa ma mai gandesc cu butonul ca un fel de multi switch ca nu e un switch
@@ -147,18 +152,14 @@ if(button_pressed==0)//buton apasat
        {
        SUMA=SUMA+arrayOre[i];
        }
-    
-    while(contorMin%2!=0)
-    {
     return val_afisor=SUMA;
-    }
 
 
   }
  
   }
-
-  */
+    }
+  
 
 
 
@@ -311,7 +312,27 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
 
 while (1)
       {
-      // Place your code here
-
+      LED_Stare_Curent();
+      if(check_pulse==1)
+      {
+        cont_pulse=0;
+        while(check_pulse!=0)
+          {if(in_semnal_p==1)
+            {
+            cont_pulse=cont_pulse+1;
+            }
+          }
+      }
+      nrTotalPuls=cont_pulse;
+      ValAfisorButon();
+      
+      
+      
+      
+      
+      
+      
+      
+      
       }
  }
