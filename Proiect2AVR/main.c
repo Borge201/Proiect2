@@ -1,7 +1,7 @@
 /*******************************************************
 This program was created by the CodeWizardAVR V3.29 
 Automatic Program Generator
-© Copyright 1998-2016 Pavel Haiduc, HP InfoTech s.r.l.
+Â© Copyright 1998-2016 Pavel Haiduc, HP InfoTech s.r.l.
 http://www.hpinfotech.com
 
 Project : Proiect2
@@ -501,8 +501,6 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
 
 // Globally enable interrupts
 #asm("sei")
-
-while (1)
       check_pulse=PINC.0;//portile pentru primirea datelor
  in_semnal_p=PINC.1;
 while (1)
