@@ -1,7 +1,7 @@
 /*******************************************************
 This program was created by the CodeWizardAVR V3.29 
 Automatic Program Generator
-Â© Copyright 1998-2016 Pavel Haiduc, HP InfoTech s.r.l.
+© Copyright 1998-2016 Pavel Haiduc, HP InfoTech s.r.l.
 http://www.hpinfotech.com
 
 Project : Proiect2
@@ -23,18 +23,13 @@ Data Stack size         : 256
 #include <io.h>
 
 // Declare your global variables here
-char nrTotalPuls = 0;  //valoarea initiala
 char arrayOre[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char contorIn=0;
 char contorSec=0;
 char contorMin=0;
 char contorHr=1;
 char val_afisor;
-// variabila de verificare a butonului
-char button_pressed;
-char check_pulse; //modifica pini conform cerintei
 char cont_pulse=0;
-char in_semnal_p;
 // Timer 0 overflow interrupt service routine
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
@@ -58,37 +53,22 @@ if(contorMin%60==0){
 contorHr=contorHr+1;
 contorMin=0;
 }
-arrayOre[contorHr]=nrTotalPuls;
+
  if(contorHr%24==0){
   contorHr=1;
   }
 }
-
-
-char get_Curent_state(void)
- {    //citim cei 6 biti de la dsp pentru valoarea curentului
-  unsigned char val;
-  
-  val=PINC & 0b00111111;    //schimba in port C
-  val=val<<2;
-  val=2>>val;
-  //shiftam biti pentru a avea doar codul de stare pentru LEDuri                       
-  return val; 
- }
-
-
 void LED_Stare_Curent(void)
-{char LEDstate;
-LEDstate=get_Curent_state();
- if(LEDstate==0b00000001){   //schimba in port D2, D3, D4
+{
+ if(PINC.2==1){   //schimba in port D2, D3, D4
  PORTD.4=1;  // reprezinta o valoare scauzta 10mA-1.5ish A
  PORTD.3=0;
  PORTD.2=0;
- }else if(LEDstate==0b00000010){
+ }else if(PINC.3==1){
  PORTD.4=0;
  PORTD.3=1;     // reprezinta o valoare medie  1.501 A -3.5 A
  PORTD.2=0;
- }else if(LEDstate==0b00000100){
+ }else if(PINC.4==1){
  PORTD.4=0;
  PORTD.3=0;
  PORTD.2=1;   // reprezinta o valoare mare 3.501 A- 5A
@@ -310,8 +290,7 @@ char SUMA;
 //ar trebui sa il pun intr-o
 char buffer_calc;
 char i;
-if(button_pressed==0)//buton apasat   butonul este PportD5, cu portD6 allways on
-//fa astfel incat daca butonul a fost apasat sa ne arate 12 ore de consum cat timp e apasat si daca "nu a fost apasat" sa ne arate ultimele 24 de ore
+if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on
  { 
   SUMA=0;
   if(contorHr>8)
@@ -501,22 +480,23 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
 
 // Globally enable interrupts
 #asm("sei")
-      check_pulse=PINC.0;//portile pentru primirea datelor
- in_semnal_p=PINC.1;
+      
 while (1)
-      {
+      {  
+//check_pulse=PINC.0;//portile pentru primirea datelor
+//in_semnal_p=PINC.1;
       LED_Stare_Curent();
-      if(check_pulse==1 ) //fal portC.0
+      if(PINC.0==1 ) //fal portC.0
       {
         cont_pulse=0;
-        while(check_pulse!=0) // fal port C.1
-          {if(in_semnal_p==1) // DSP ar trebui sa trimita semnal de genul 1110111 
+        while(PINC.0!=0) // fal port C.1
+          {if(PINC.1==1) // DSP ar trebui sa trimita semnal de genul 1110111 
             {
             cont_pulse=cont_pulse+1;
             }
           }
       }
-      nrTotalPuls=cont_pulse;
+      arrayOre[contorHr]=cont_pulse;
       Afisor_2Cifre(ValAfisorButon());
       }
 }
