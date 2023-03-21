@@ -22,9 +22,8 @@ cifra1                                                                          
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-timer0_ovf_isr                                                                    0x00076     55
-get_Curent_state                                                                  0x000AD     11
-LED_Stare_Curent                                                                  0x000B8     22
-Afisor_2Cifre                                                                     0x000CE    181
-ValAfisorButon                                                                    0x00183     65
-main                                                                              0x001C4    113
+timer0_ovf_isr                                                                    0x00074     50
+LED_Stare_Curent                                                                  0x000A6     19
+Afisor_2Cifre                                                                     0x000B9    181
+ValAfisorButon                                                                    0x0016E     65
+main                                                                              0x001AF    110

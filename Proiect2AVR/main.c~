@@ -23,7 +23,6 @@ Data Stack size         : 256
 #include <io.h>
 
 // Declare your global variables here
-char nrTotalPuls = 0;  //valoarea initiala
 char arrayOre[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char contorIn=0;
 char contorSec=0;
@@ -85,8 +84,8 @@ void LED_Stare_Curent(void)
 char cifra0;
 char cifra1;
 
-void Afisor_2Cifre(char value){  //vei lua PORTA complet, PortD7,portB 0->4 14 biti pentur 2 cifre 7 biti din port A o sai setezi pentru prima cifra restul cifra 2 Doamne ajuta
-//placeholder pentru porti liberi pentru 2 cifre
+void Afisor_2Cifre(char value){  
+//vei lua PORTA complet, PortD7,portB 0->4 14 biti pentur 2 cifre 7 biti din port A o sai setezi pentru prima cifra restul cifra 2 Doamne ajuta
 //tine minte afisorul este pe logica inversa
  cifra0=value%10;
  cifra1=(value/10)%10;
@@ -291,7 +290,7 @@ char SUMA;
 //ar trebui sa il pun intr-o
 char buffer_calc;
 char i;
-if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on
+if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on pentru LED
  { 
   SUMA=0;
   if(contorHr>8)
@@ -309,7 +308,7 @@ if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on
     SUMA=SUMA+arrayOre[i];}
   }
   return val_afisor=SUMA;                          
-  //sfarsitul functiei de 24 de ore
+  //sfarsitul functiei de 8 de ore
  }
    else
   {SUMA=0;
@@ -484,16 +483,14 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
       
 while (1)
       {  
-//check_pulse=PINC.0;//portile pentru primirea datelor
-//in_semnal_p=PINC.1;
       LED_Stare_Curent();
-      if(PINC.0==1 ) //fal portC.0
+      if(PINC.0==1 )
       {
         cont_pulse=0;
-        while(PINC.0!=0) // fal port C.1
-          {if(PINC.1==1) // DSP ar trebui sa trimita semnal de genul 1110111 
+        while(PINC.0!=0) 
+          {if(PINC.1==1)  
             {
-            cont_pulse=cont_pulse+1;
+            cont_pulse=cont_pulse+1;   //DSP ar trebui sa trimita ceva de genul 00100 pentru un puls simplu
             }
           }
       }

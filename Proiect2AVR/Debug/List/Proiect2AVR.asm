@@ -1377,7 +1377,7 @@ _LED_Stare_Curent:
 ; 0000 0040  PORTD.4=1;  // reprezinta o valoare scauzta 10mA-1.5ish A
 	SBI  0xB,4
 ; 0000 0041  PORTD.3=0;
-	RJMP _0x184
+	RJMP _0x186
 ; 0000 0042  PORTD.2=0;
 ; 0000 0043  }else if(PINC.3==1){
 _0x7:
@@ -1388,7 +1388,7 @@ _0x7:
 ; 0000 0045  PORTD.3=1;     // reprezinta o valoare medie  1.501 A -3.5 A
 	SBI  0xB,3
 ; 0000 0046  PORTD.2=0;
-	RJMP _0x185
+	RJMP _0x187
 ; 0000 0047  }else if(PINC.4==1){
 _0xF:
 	SBIS 0x6,4
@@ -1407,10 +1407,10 @@ _0x17:
 ; 0000 004E  PORTD.4=0;
 	CBI  0xB,4
 ; 0000 004F  PORTD.3=0;
-_0x184:
+_0x186:
 	CBI  0xB,3
 ; 0000 0050  PORTD.2=0;// nu ne afiseaza niciun led
-_0x185:
+_0x187:
 	CBI  0xB,2
 ; 0000 0051  }
 _0x1E:
@@ -1421,11 +1421,11 @@ _0x1E:
 ;char cifra0;
 ;char cifra1;
 ;
-;void Afisor_2Cifre(char value){  //vei lua PORTA complet, PortD7,portB 0->4 14 biti pentur 2 cifre 7 biti din port A o s ...
+;void Afisor_2Cifre(char value){
 ; 0000 0057 void Afisor_2Cifre(char value){
 _Afisor_2Cifre:
 ; .FSTART _Afisor_2Cifre
-; 0000 0058 //placeholder pentru porti liberi pentru 2 cifre
+; 0000 0058 //vei lua PORTA complet, PortD7,portB 0->4 14 biti pentur 2 cifre 7 biti din port A o sai setezi pentru prima cifra rest ...
 ; 0000 0059 //tine minte afisorul este pe logica inversa
 ; 0000 005A  cifra0=value%10;
 	ST   -Y,R17
@@ -1500,7 +1500,7 @@ _0x35:
 ; 0000 0076 PORTA.5=1;  //pin 20 4F
 	SBI  0x2,5
 ; 0000 0077 PORTA.6=0;  //pin 20 4G
-	RJMP _0x186
+	RJMP _0x188
 ; 0000 0078 }
 ; 0000 0079 else if(cifra0==3)
 _0x45:
@@ -1517,7 +1517,7 @@ _0x45:
 ; 0000 007F PORTA.5=1;  //pin 20 4F
 	SBI  0x2,5
 ; 0000 0080 PORTA.6=0;  //pin 20 4G
-	RJMP _0x186
+	RJMP _0x188
 ; 0000 0081 }
 ; 0000 0082 else if(cifra0==4)
 _0x55:
@@ -1531,7 +1531,7 @@ _0x55:
 ; 0000 0086 PORTA.3=0;  //pin 20 4B
 ; 0000 0087 PORTA.4=1;  //pin 20 4A
 ; 0000 0088 PORTA.5=0;  //pin 20 4F
-	RJMP _0x187
+	RJMP _0x189
 ; 0000 0089 PORTA.6=0;  //pin 20 4G
 ; 0000 008A }
 ; 0000 008B else if(cifra0==5)
@@ -1548,7 +1548,7 @@ _0x65:
 ; 0000 008F PORTA.3=1;  //pin 20 4B
 	SBI  0x2,3
 ; 0000 0090 PORTA.4=0;  //pin 20 4A
-	RJMP _0x188
+	RJMP _0x18A
 ; 0000 0091 PORTA.5=0;  //pin 20 4F
 ; 0000 0092 PORTA.6=0;  //pin 20 4G
 ; 0000 0093 }
@@ -1566,7 +1566,7 @@ _0x75:
 ; 0000 0098 PORTA.3=1;  //pin 20 4B
 	SBI  0x2,3
 ; 0000 0099 PORTA.4=0;  //pin 20 4A
-	RJMP _0x188
+	RJMP _0x18A
 ; 0000 009A PORTA.5=0;  //pin 20 4F
 ; 0000 009B PORTA.6=0;  //pin 20 4G
 ; 0000 009C }
@@ -1599,7 +1599,7 @@ _0x95:
 ; 0000 00A7 {PORTA.0=0;  //pin 17 4E
 	CBI  0x2,0
 ; 0000 00A8 PORTA.1=0;  //pin 18 4D
-	RJMP _0x189
+	RJMP _0x18B
 ; 0000 00A9 PORTA.2=0;  //pin 19 4C
 ; 0000 00AA PORTA.3=0;  //pin 20 4B
 ; 0000 00AB PORTA.4=0;  //pin 20 4A
@@ -1614,20 +1614,20 @@ _0xA5:
 ; 0000 00B0 {PORTA.0=1;  //pin 17 4E
 	SBI  0x2,0
 ; 0000 00B1 PORTA.1=0;  //pin 18 4D
-_0x189:
+_0x18B:
 	CBI  0x2,1
 ; 0000 00B2 PORTA.2=0;  //pin 19 4C
 	CBI  0x2,2
 ; 0000 00B3 PORTA.3=0;  //pin 20 4B
 	CBI  0x2,3
 ; 0000 00B4 PORTA.4=0;  //pin 20 4A
-_0x188:
+_0x18A:
 	CBI  0x2,4
 ; 0000 00B5 PORTA.5=0;  //pin 20 4F
-_0x187:
+_0x189:
 	CBI  0x2,5
 ; 0000 00B6 PORTA.6=0;  //pin 20 4G
-_0x186:
+_0x188:
 	CBI  0x2,6
 ; 0000 00B7 }
 ; 0000 00B8 if(cifra1==0)
@@ -1688,7 +1688,7 @@ _0xD4:
 ; 0000 00D3 PORTB.3=1;  // pin 26 3F
 	SBI  0x5,3
 ; 0000 00D4 PORTB.4=0;  // pin 27 3G
-	RJMP _0x18A
+	RJMP _0x18C
 ; 0000 00D5 }
 ; 0000 00D6 else if(cifra1==3)
 _0xE4:
@@ -1706,7 +1706,7 @@ _0xE4:
 ; 0000 00DD PORTB.3=1;  // pin 26 3F
 	SBI  0x5,3
 ; 0000 00DE PORTB.4=0;  // pin 27 3G
-	RJMP _0x18A
+	RJMP _0x18C
 ; 0000 00DF }
 ; 0000 00E0 else if(cifra1==4)
 _0xF4:
@@ -1721,7 +1721,7 @@ _0xF4:
 ; 0000 00E5 PORTB.1=0;  // pin 24 3B
 ; 0000 00E6 PORTB.2=1;  // pin 25 3A
 ; 0000 00E7 PORTB.3=0;  // pin 26 3F
-	RJMP _0x18B
+	RJMP _0x18D
 ; 0000 00E8 PORTB.4=0;  // pin 27 3G
 ; 0000 00E9 }
 ; 0000 00EA else if(cifra1==5)
@@ -1739,7 +1739,7 @@ _0x104:
 ; 0000 00EF PORTB.1=1;  // pin 24 3B
 	SBI  0x5,1
 ; 0000 00F0 PORTB.2=0;  // pin 25 3A
-	RJMP _0x18C
+	RJMP _0x18E
 ; 0000 00F1 PORTB.3=0;  // pin 26 3F
 ; 0000 00F2 PORTB.4=0;  // pin 27 3G
 ; 0000 00F3 }
@@ -1758,7 +1758,7 @@ _0x114:
 ; 0000 00F9 PORTB.1=1;  // pin 24 3B
 	SBI  0x5,1
 ; 0000 00FA PORTB.2=0;  // pin 25 3A
-	RJMP _0x18C
+	RJMP _0x18E
 ; 0000 00FB PORTB.3=0;  // pin 26 3F
 ; 0000 00FC PORTB.4=0;  // pin 27 3G
 ; 0000 00FD }
@@ -1821,13 +1821,13 @@ _0x144:
 ; 0000 0117 PORTB.1=0;  // pin 24 3B
 	CBI  0x5,1
 ; 0000 0118 PORTB.2=0;  // pin 25 3A
-_0x18C:
+_0x18E:
 	CBI  0x5,2
 ; 0000 0119 PORTB.3=0;  // pin 26 3F
-_0x18B:
+_0x18D:
 	CBI  0x5,3
 ; 0000 011A PORTB.4=0;  // pin 27 3G
-_0x18A:
+_0x18C:
 	CBI  0x5,4
 ; 0000 011B }
 ; 0000 011C }
@@ -1850,7 +1850,7 @@ _ValAfisorButon:
 ; 0000 0122 //ar trebui sa il pun intr-o
 ; 0000 0123 char buffer_calc;
 ; 0000 0124 char i;
-; 0000 0125 if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on
+; 0000 0125 if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on pentru LED
 	RCALL __SAVELOCR4
 ;	SUMA -> R17
 ;	buffer_calc -> R16
@@ -1912,7 +1912,7 @@ _0x168:
 	MOV  R30,R17
 	MOV  R8,R30
 	RJMP _0x2000001
-; 0000 0137   //sfarsitul functiei de 24 de ore
+; 0000 0137   //sfarsitul functiei de 8 de ore
 ; 0000 0138  }
 ; 0000 0139    else
 _0x163:
@@ -1991,7 +1991,7 @@ _0x2000001:
 _main:
 ; .FSTART _main
 ; 0000 0158 // Declare your local variables here
-; 0000 0159 
+; 0000 0159  //DSP ar trebui sa trimita ceva de genul 00100 pentru un puls simplu
 ; 0000 015A // Crystal Oscillator division factor: 1
 ; 0000 015B #pragma optsize-
 ; 0000 015C CLKPR=(1<<CLKPCE);
@@ -2190,50 +2190,49 @@ _main:
 ; 0000 01E1 // Globally enable interrupts
 ; 0000 01E2 #asm("sei")
 	SEI
-; 0000 01E3 
+; 0000 01E3 PIND.6=1;
+	SBI  0x9,6
 ; 0000 01E4 while (1)
-_0x17B:
+_0x17D:
 ; 0000 01E5       {
-; 0000 01E6 //check_pulse=PINC.0;//portile pentru primirea datelor
-; 0000 01E7 //in_semnal_p=PINC.1;
-; 0000 01E8       LED_Stare_Curent();
+; 0000 01E6       LED_Stare_Curent();
 	RCALL _LED_Stare_Curent
-; 0000 01E9       if(PINC.0==1 ) //fal portC.0
+; 0000 01E7       if(PINC.0==1 )
 	SBIS 0x6,0
-	RJMP _0x17E
-; 0000 01EA       {
-; 0000 01EB         cont_pulse=0;
+	RJMP _0x180
+; 0000 01E8       {
+; 0000 01E9         cont_pulse=0;
 	CLR  R7
-; 0000 01EC         while(PINC.0!=0) // fal port C.1
-_0x17F:
-	SBIS 0x6,0
-	RJMP _0x181
-; 0000 01ED           {if(PINC.1==1) // DSP ar trebui sa trimita semnal de genul 1110111
-	SBIC 0x6,1
-; 0000 01EE             {
-; 0000 01EF             cont_pulse=cont_pulse+1;
-	INC  R7
-; 0000 01F0             }
-; 0000 01F1           }
-	RJMP _0x17F
+; 0000 01EA         while(PINC.0!=0)
 _0x181:
-; 0000 01F2       }
-; 0000 01F3       arrayOre[contorHr]=cont_pulse;
-_0x17E:
+	SBIS 0x6,0
+	RJMP _0x183
+; 0000 01EB           {if(PINC.1==1)
+	SBIC 0x6,1
+; 0000 01EC             {
+; 0000 01ED             cont_pulse=cont_pulse+1;
+	INC  R7
+; 0000 01EE             }
+; 0000 01EF           }
+	RJMP _0x181
+_0x183:
+; 0000 01F0       }
+; 0000 01F1       arrayOre[contorHr]=cont_pulse;
+_0x180:
 	MOV  R30,R5
 	LDI  R31,0
 	SUBI R30,LOW(-_arrayOre)
 	SBCI R31,HIGH(-_arrayOre)
 	ST   Z,R7
-; 0000 01F4       Afisor_2Cifre(ValAfisorButon());
+; 0000 01F2       Afisor_2Cifre(ValAfisorButon());
 	RCALL _ValAfisorButon
 	MOV  R26,R30
 	RCALL _Afisor_2Cifre
-; 0000 01F5       }
-	RJMP _0x17B
-; 0000 01F6 }
-_0x183:
-	RJMP _0x183
+; 0000 01F3       }
+	RJMP _0x17D
+; 0000 01F4 }
+_0x185:
+	RJMP _0x185
 ; .FEND
 
 	.DSEG
