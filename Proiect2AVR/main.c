@@ -27,9 +27,12 @@ char arrayOre[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char contorIn=0;
 char contorSec=0;
 char contorMin=0;
-char contorHr=1;
+char contorHr=0;
 char val_afisor;
 char cont_pulse=0;
+char totalConsum=0;
+char consZi=0;
+char j=0;
 // Timer 0 overflow interrupt service routine
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
@@ -53,9 +56,14 @@ if(contorMin%60==0){
 contorHr=contorHr+1;
 contorMin=0;
 }
-
+// o sa ne caculeze consumul la sfarsitul zilei si apoi o sa ne 
+// treaca in cealalta zi
  if(contorHr%24==0){
-  contorHr=1;
+ consZi=0;
+ for(j=0;j<24;j++)
+ {consZi=consZi+arrayOre[j];
+ }
+  contorHr=0;
   }
 }
 void LED_Stare_Curent(void)
@@ -282,60 +290,31 @@ PORTB.3=0;  // pin 26 3F
 PORTB.4=0;  // pin 27 3G
 }
 }
-
-
+  
+     
 char ValAfisorButon(void){
 char SUMA;
-//ar trebui sa ma mai gandesc cu butonul ca un fel de multi switch ca nu e un switch
-//ar trebui sa il pun intr-o
-char buffer_calc;
 char i;
 if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on pentru LED
- { 
+ {// ne va afisa ultimele 24 de ore de consum 
   SUMA=0;
-  if(contorHr>8)
-  {      buffer_calc=contorHr-8;
-  for(i=buffer_calc;i<=contorHr;i++)
+  if(consZi==0)
+  {for(i=0;i<contorHr;i++)
   {   SUMA=SUMA+arrayOre[i];
+  // ne va arata consumul pana la ora curenta de la pornire
   } 
   }
-  else{
-    buffer_calc=8-contorHr;
-    for(i=24-buffer_calc;i<=24;i++)
-    { SUMA=SUMA+arrayOre[i];
-    }
-    for(i=1;i<=contorHr;i++){
-    SUMA=SUMA+arrayOre[i];}
+  else{  
+  SUMA=consZi; 
   }
   return val_afisor=SUMA;                          
-  //sfarsitul functiei de 8 de ore
+  //sfarsitul buton apasat
  }
    else
-  {SUMA=0;
-  
-  if(contorHr>4)
-   {
-   buffer_calc=contorHr-4;
-    for(i=buffer_calc;i<=contorHr;i++)
-      {
-      SUMA=SUMA+arrayOre[i];
-      }
-    }
-    else  {
-       buffer_calc=4-contorHr;
-       for(i=24-buffer_calc;i<=24;i++)
-        {
-        SUMA=SUMA+arrayOre[i];
-        }
-       for(i=1;i<=contorHr;i++)
-       {
-       SUMA=SUMA+arrayOre[i];
-       }
-     // ar trebui sa ne arate consumul de kWh pentru ultimele 4 ore cat timp apasam
+  {SUMA=totalConsum;
         }
    return val_afisor=SUMA;
   }
-}
 
 
 
@@ -493,8 +472,9 @@ while (1)
             cont_pulse=cont_pulse+1;  
             }
           }
-      }
-      arrayOre[contorHr]=cont_pulse;
+      }      
+      totalConsum=totalConsum+cont_pulse;
+      arrayOre[contorHr]= arrayOre[contorHr]+cont_pulse;
       Afisor_2Cifre(ValAfisorButon());
       }
 }

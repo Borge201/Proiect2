@@ -16,14 +16,17 @@ contorMin                                                                       
 contorHr                                                                          R5           1
 val_afisor                                                                        R8           1
 cont_pulse                                                                        R7           1
-cifra0                                                                            R10          1
-cifra1                                                                            R9           1
+totalConsum                                                                       R10          1
+consZi                                                                            R9           1
+j                                                                                 R12          1
+cifra0                                                                            R11          1
+cifra1                                                                            R14          1
 
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-timer0_ovf_isr                                                                    0x00074     50
-LED_Stare_Curent                                                                  0x000A6     19
-Afisor_2Cifre                                                                     0x000B9    181
-ValAfisorButon                                                                    0x0016E     65
-main                                                                              0x001AF    110
+timer0_ovf_isr                                                                    0x00076     59
+LED_Stare_Curent                                                                  0x000B1     19
+Afisor_2Cifre                                                                     0x000C4    181
+ValAfisorButon                                                                    0x00179     24
+main                                                                              0x00191    114
