@@ -48,5 +48,8 @@ sqr:
 AY0=0x0FFF;
 AR=AX0, AF=AX0 AND AY0;
 output=AR;
+AR=AX0, AF=AX0 AND AY0;
+NOT AR;
+output=AR;
 
 stop: jump stop;
