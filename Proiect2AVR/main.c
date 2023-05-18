@@ -12,7 +12,7 @@ Company :
 Comments: 
 
 
-Chip type               : ATmega164
+Chip type               : ATmega164P
 Program type            : Application
 AVR Core Clock frequency: 20.000000 MHz
 Memory model            : Small
@@ -103,9 +103,9 @@ PORTA.0=0;  //pin 17 4E
 PORTA.1=0;  //pin 18 4D
 PORTA.2=0;  //pin 19 4C
 PORTA.3=0;  //pin 20 4B
-PORTA.4=0;  //pin 20 4A
-PORTA.5=0;  //pin 20 4F
-PORTA.6=1;  //pin 20 4G
+PORTA.4=0;  //pin 21 4A
+PORTA.5=0;  //pin 22 4F
+PORTA.6=1;  //pin 23 4G
 }
 else if(cifra0==1)
 {
@@ -293,16 +293,25 @@ PORTB.4=0;  // pin 27 3G
   
      
 char ValAfisorButon(void){
-char SUMA;
+char SUMA=0;
 char i;
 if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on pentru LED
  {// ne va afisa ultimele 24 de ore de consum 
   SUMA=0;
   if(consZi==0)
-  {for(i=0;i<contorHr;i++)
-  {   SUMA=SUMA+arrayOre[i];
-  // ne va arata consumul pana la ora curenta de la pornire
-  } 
+  {if(contorHr<24)
+     { for(i=0;i<contorHr+1;i++)
+      {   SUMA=SUMA+arrayOre[i];
+      // ne va arata consumul pana la ora curenta de la pornire
+      }
+      }
+   else 
+   { for(i=0;i<contorHr;i++)
+      {   SUMA=SUMA+arrayOre[i];
+      // ne va arata consumul pana la ora curenta de la pornire in caz ca consZi e 0
+      }
+   
+   } 
   }
   else{  
   SUMA=consZi; 
