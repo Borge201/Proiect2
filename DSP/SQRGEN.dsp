@@ -5,8 +5,8 @@
 .var I;
 .var P;
 .var A;
-.var timp;
-.var prag;
+.var ;
+.var invprag;
 .var N;
 
 
@@ -36,13 +36,17 @@ MR=MR+MX0*MY0;      //calculul energiei (suma de produse)
 
 DM(E)=MR;           //valoarea energiei este incarcata in memorie
 MX0=DM(E);          //in reg x se incarca valoarea energiei
-MY0=DM(prag);       //in y este incarcata valoarea pragului
-MR=DIVS MX0, MY0;   //in reg de rezultat o sa apara numarul N de impulsuri 
+MY0=DM(invprag);       //in y este incarcata valoarea pragului
+MR= MX0*MY0;   //in reg de rezultat o sa apara numarul N de impulsuri 
                     //care trebuie generate dupa impartirea energiei la pragul de 1KWh
                     //(3 KWh/1 KWh => 3 impulsuri)
 DM(N)=MR;           //numarul de impulsuri salvat in memorie
 // daca N > 0 atunci se genereaza un puls
-
-
+CNTR=DM(N);
+DO sqr UNTIL CE
+sqr:
+AY0=0x0FFF;
+AR=AX0, AF=AX0 AND AY0;
+output=AR;
 
 stop: jump stop;
