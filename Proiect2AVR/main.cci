@@ -1,4 +1,4 @@
-VERSION:3 SOURCE_TIMESTAMP:56B2418D
+VERSION:3 SOURCE_TIMESTAMP:56B2570F
 NODE:I LEVEL:0 LINE:23 "C:\cvavreval\inc\io.h"
 NODE:V LEVEL:0 LINE:26 "arrayOre -> RAM:????"
 NODE:V LEVEL:0 LINE:27 "contorIn -> R4"
@@ -16,4 +16,4 @@ NODE:V LEVEL:0 LINE:92 "cifra0 -> R11"
 NODE:V LEVEL:0 LINE:93 "cifra1 -> R14"
 NODE:F LEVEL:0 LINE:95 "Afisor_2Cifre(unsigned char value)"
 NODE:F LEVEL:0 LINE:295 "ValAfisorButon(void)"
-NODE:F LEVEL:0 LINE:330 "main(void)"
+NODE:F LEVEL:0 LINE:331 "main(void)"

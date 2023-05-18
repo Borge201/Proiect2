@@ -28,5 +28,5 @@ Function                                                                        
 timer0_ovf_isr                                                                    0x00076     59
 LED_Stare_Curent                                                                  0x000B1     19
 Afisor_2Cifre                                                                     0x000C4    181
-ValAfisorButon                                                                    0x00179     24
-main                                                                              0x00191    114
+ValAfisorButon                                                                    0x00179     43
+main                                                                              0x001A4    115

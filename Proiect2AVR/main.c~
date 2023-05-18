@@ -12,7 +12,7 @@ Company :
 Comments: 
 
 
-Chip type               : ATmega164
+Chip type               : ATmega164P
 Program type            : Application
 AVR Core Clock frequency: 20.000000 MHz
 Memory model            : Small
@@ -33,6 +33,7 @@ char cont_pulse=0;
 char totalConsum=0;
 char consZi=0;
 char j=0;
+char edgeBuff;
 // Timer 0 overflow interrupt service routine
 interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 {
@@ -42,7 +43,7 @@ interrupt [TIM0_OVF] void timer0_ovf_isr(void)
 TCNT0=0x63; 
 // Place your code here
 contorIn=contorIn+1;
-if(contorIn%25==0){
+if(contorIn%100==0){
 // contorIn pentru 4MHz si TCNT0 ales numara o secunda odata ce ajunge la valoarea de 25
 //pentru 20Mhz ar trebui sa fie 100
     contorSec=contorSec+1;
@@ -304,25 +305,26 @@ if(PIND.5==0)//buton apasat   butonul este portD5, cu portD6 allways on pentru L
       {   SUMA=SUMA+arrayOre[i];
       // ne va arata consumul pana la ora curenta de la pornire
       }
+      val_afisor=SUMA;
       }
    else 
    { for(i=0;i<contorHr;i++)
       {   SUMA=SUMA+arrayOre[i];
       // ne va arata consumul pana la ora curenta de la pornire in caz ca consZi e 0
       }
-   
+      val_afisor=SUMA;
    } 
   }
   else{  
-  SUMA=consZi; 
+  val_afisor=consZi; 
   }
-  return val_afisor=SUMA;                          
+                           
   //sfarsitul buton apasat
  }
    else
-  {SUMA=totalConsum;
+  {val_afisor=totalConsum;
         }
-   return val_afisor=SUMA;
+   return val_afisor;
   }
 
 
@@ -360,9 +362,9 @@ PORTC=(1<<PORTC7) | (1<<PORTC6) | (1<<PORTC5) | (1<<PORTC4) | (1<<PORTC3) | (1<<
 
 // Port D initialization
 // Function: Bit7=Out Bit6=In Bit5=In Bit4=Out Bit3=Out Bit2=Out Bit1=In Bit0=In 
-DDRD=(1<<DDD7) | (0<<DDD6) | (0<<DDD5) | (1<<DDD4) | (1<<DDD3) | (1<<DDD2) | (0<<DDD1) | (0<<DDD0);
-// State: Bit7=1 Bit6=T Bit5=T Bit4=1 Bit3=1 Bit2=1 Bit1=T Bit0=T 
-PORTD=(1<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (1<<PORTD4) | (1<<PORTD3) | (1<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
+DDRD=(1<<DDD7) | (1<<DDD6) | (0<<DDD5) | (1<<DDD4) | (1<<DDD3) | (1<<DDD2) | (0<<DDD1) | (0<<DDD0);
+// State: Bit7=1 Bit6=0 Bit5=T Bit4=0 Bit3=0 Bit2=0 Bit1=T Bit0=T 
+PORTD=(1<<PORTD7) | (1<<PORTD6) | (0<<PORTD5) | (1<<PORTD4) | (1<<PORTD3) | (1<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
 
 // Timer/Counter 0 initialization
 // Clock source: System Clock
@@ -468,22 +470,28 @@ TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
 
 // Globally enable interrupts
 #asm("sei")
-PIND.6=1;   
+edgeBuff=0; 
 while (1)
-      {  
+      {  PIND.6=0;
       LED_Stare_Curent();
+     
       if(PINC.0==1 )
       {
         cont_pulse=0;
         while(PINC.0!=0) 
-          {if(PINC.1==1)  
+          {if(PINC.1==0)
+          { edgeBuff=0;
+                   
+          if(PINC.1!=edgeBuff)  
             {
             cont_pulse=cont_pulse+1;  
             }
+          } 
           }
-      }      
+      }
       totalConsum=totalConsum+cont_pulse;
-      arrayOre[contorHr]= arrayOre[contorHr]+cont_pulse;
+      arrayOre[contorHr]= arrayOre[contorHr]+cont_pulse ;
+      cont_pulse=0;      
       Afisor_2Cifre(ValAfisorButon());
       }
 }
