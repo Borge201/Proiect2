@@ -1,0 +1,35 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+arrayOre                                                                          0x0200      24
+cifra1                                                                            0x0218       1
+cifra2                                                                            0x0219       1
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+contorIn                                                                          R4           1
+contorSec                                                                         R3           1
+contorMin                                                                         R6           1
+contorHr                                                                          R5           1
+val_afisor                                                                        R8           1
+cont_pulse                                                                        R7           1
+totalConsum                                                                       R10          1
+consZi                                                                            R9           1
+j                                                                                 R12          1
+ultimStare                                                                        R13,R14      2
+cifra0                                                                            R11          1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+timer0_ovf_isr                                                                    0x00077     61
+LED_Stare_Curent                                                                  0x000B4     28
+Afisor_2Cifre                                                                     0x000D0    291
+ValAfisorButon                                                                    0x001F3     41
+PinStareMod                                                                       0x0021C     16
+main                                                                              0x0022C    117
